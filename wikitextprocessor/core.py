@@ -1283,7 +1283,7 @@ class Wtp(object):
         text = re.sub(MAGIC_NOWIKI_CHAR, "<nowiki />", text)
         return text
 
-    def process(self, path, page_handler, phase1_only=False):
+    def process(self, path, page_handler, phase1_only=False, windows=False):
         """Parses a WikiMedia dump file ``path`` (which should point to a
         "<project>-<date>-pages-articles.xml.bz2" file.  This calls
         ``page_handler(model, title, page)`` for each raw page.  This
@@ -1302,7 +1302,7 @@ class Wtp(object):
         assert isinstance(path, str)
         assert callable(page_handler)
         # Process the dump and copy it to temporary file (Phase 1)
-        process_dump(self, path, page_handler)
+        process_dump(self, path, page_handler, windows)
         if phase1_only:
             return []
 

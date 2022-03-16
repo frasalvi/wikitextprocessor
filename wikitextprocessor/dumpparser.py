@@ -169,7 +169,7 @@ def make_iter(f):
     return article_iter()
 
 
-def process_input(path, page_cb):
+def process_input(path, page_cb, windows=False):
     """Processes the entire input once, calling chunk_fn for each chunk.
     A chunk is a list of data, where ``data`` is a dict
     containing at least "title" and "text" keys.  This returns a list
@@ -184,8 +184,12 @@ def process_input(path, page_cb):
     if path.endswith(".bz2"):
         # cmd = "bzcat {} | buffer -m 16M".format(path)
         cmd = "bzcat {}".format(path)
-        subp = subprocess.Popen(["/bin/sh", "-c", cmd], stdout=subprocess.PIPE,
-                                bufsize=256*1024)
+        if(windows):
+            subp = subprocess.Popen(["C:\Users\franc\AppData\Local\Microsoft\WindowsApps\ubuntu2004.exe", "-c", cmd], stdout=subprocess.PIPE,
+                                    bufsize=256*1024)
+        else:
+            subp = subprocess.Popen(["/bin/sh", "-c", cmd], stdout=subprocess.PIPE,
+                                    bufsize=256*1024)
         wikt_f = subp.stdout
     else:
         wikt_f = open(path, "rb", buffering=(256 * 1024))
