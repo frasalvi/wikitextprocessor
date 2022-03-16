@@ -185,7 +185,7 @@ def process_input(path, page_cb, windows=False):
         # cmd = "bzcat {} | buffer -m 16M".format(path)
         cmd = "bzcat {}".format(path)
         if(windows):
-            subp = subprocess.Popen(["C:\Users\franc\AppData\Local\Microsoft\WindowsApps\ubuntu2004.exe", "-c", cmd], stdout=subprocess.PIPE,
+            subp = subprocess.Popen(["C:/Users/franc/AppData/Local/Microsoft/WindowsApps/ubuntu2004.exe", "-c", cmd], stdout=subprocess.PIPE,
                                     bufsize=256*1024)
         else:
             subp = subprocess.Popen(["/bin/sh", "-c", cmd], stdout=subprocess.PIPE,
@@ -206,7 +206,7 @@ def process_input(path, page_cb, windows=False):
     return lst
 
 
-def process_dump(ctx, path, page_handler):
+def process_dump(ctx, path, page_handler, windows=False):
     """Parses a WikiMedia dump file ``path`` (which should point to a
     "<project>-<date>-pages-articles.xml.bz2" file.  This calls
     ``page_handler(title, page)`` for each raw page.  This implements
@@ -223,7 +223,7 @@ def process_dump(ctx, path, page_handler):
 
     # Run Phase 1 in a single thread; this mostly just extracts pages into
     # a temporary file.
-    process_input(path, phase1_page_handler)
+    process_input(path, phase1_page_handler, windows)
 
     # Analyze which templates should be expanded before parsing
     if not ctx.quiet:
