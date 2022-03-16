@@ -820,7 +820,10 @@ class Wtp(object):
             return "&lsqb;" + "&vert;".join(args) + "&rsqb;"
         return "[" + "|".join(args) + "]"
 
-    def expand(self, text, parent=None, pre_expand=False,
+    def assign_templates(self, templates_dict):
+        self.templates = templates_dict
+
+    def expand(self, text, title, parent=None, pre_expand=False,
                template_fn=None, post_template_fn=None,
                templates_to_expand=None,
                expand_parserfns=True, expand_invoke=True, quiet=False,
@@ -848,6 +851,7 @@ class Wtp(object):
         assert template_fn is None or callable(template_fn)
         assert post_template_fn is None or callable(post_template_fn)
         assert isinstance(templates_to_expand, (set, dict, type(None)))
+        self.title = title
         assert self.title is not None  # start_page() must have been called
         assert quiet in (False, True)
         assert timeout is None or isinstance(timeout, (int, float))
