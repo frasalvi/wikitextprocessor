@@ -844,6 +844,9 @@ class Wtp(object):
         and if it returns other than None, its return value will
         replace the template expansion.  This returns the text with
         the given templates expanded."""
+
+        if not isinstance(text, str):
+            print(type(text), '\t', text)
         assert isinstance(text, str)
         assert parent is None or (isinstance(parent, (list, tuple)) and
                                   len(parent) == 2)
