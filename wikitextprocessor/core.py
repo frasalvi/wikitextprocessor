@@ -851,7 +851,8 @@ class Wtp(object):
         assert template_fn is None or callable(template_fn)
         assert post_template_fn is None or callable(post_template_fn)
         assert isinstance(templates_to_expand, (set, dict, type(None)))
-        self.title = self.title or title
+        if(title):
+            self.title = title
         assert self.title is not None  # start_page() must have been called
         assert quiet in (False, True)
         assert timeout is None or isinstance(timeout, (int, float))
